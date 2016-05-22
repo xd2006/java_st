@@ -1,7 +1,6 @@
 package st.jsc.first;
 
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class MyFirstProgram {
 
@@ -42,6 +41,7 @@ public class MyFirstProgram {
                 read = true;
             } catch (Exception e) {
                 System.out.println("Incorrect value. Please retry");
+                sc.nextLine();
             }
         }
         return value;
