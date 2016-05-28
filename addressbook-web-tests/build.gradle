@@ -1,0 +1,14 @@
+apply plugin: 'java'
+
+repositories{
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.testng:testng:6.9.10'
+    // http://mvnrepository.com/artifact/org.apache.commons/commons-math3
+    compile group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
+    compile 'org.seleniumhq.selenium:selenium-java:2.53.0'
+
+
+}
