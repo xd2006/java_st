@@ -24,6 +24,14 @@ public class BaseHelper {
         wd.findElement(locator).sendKeys(text);
     }
 
+    protected void clickCheckBox() {
+        click(By.name("selected[]"));
+    }
+
+    protected void acceptAlert() {
+        wd.switchTo().alert().accept();
+    }
+
     public boolean isAlertPresent() {
         try {
             wd.switchTo().alert();

@@ -13,7 +13,7 @@ public class ContactHelper extends BaseHelper {
         super(wd);
     }
 
-    public void submitContactForm() {
+    public void submitContactFormCreation() {
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
 
@@ -33,11 +33,25 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void initContactCreation() {
-
-        wd.findElement(By.linkText("add new")).click();
+    click(By.linkText("add new"));
     }
 
     public void returnToHomePage() {
         click(By.linkText("home page"));
+    }
+
+    public void selectContact() {
+        clickCheckBox();
+    }
+
+
+    public void initContactModification() {
+
+        click(By.xpath(".//*[@id='maintable']/tbody/tr/td[8]/a/img"));
+
+    }
+
+    public void submitContactFormModification() {
+        click(By.name("update"));
     }
 }
