@@ -24,11 +24,11 @@ public class BaseHelper {
         wd.findElement(locator).sendKeys(text);
     }
 
-    protected void clickCheckBox() {
+    protected void clickRegularCheckBox() {
         click(By.name("selected[]"));
     }
 
-    protected void acceptAlert() {
+    public void acceptAlert() {
         wd.switchTo().alert().accept();
     }
 

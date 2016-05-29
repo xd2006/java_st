@@ -41,7 +41,7 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void selectContact() {
-        clickCheckBox();
+        clickRegularCheckBox();
     }
 
 
@@ -53,5 +53,9 @@ public class ContactHelper extends BaseHelper {
 
     public void submitContactFormModification() {
         click(By.name("update"));
+    }
+
+    public void deleteContact() {
+        click(By.xpath("//form[2]/div[2]/input[@value='Delete']"));
     }
 }

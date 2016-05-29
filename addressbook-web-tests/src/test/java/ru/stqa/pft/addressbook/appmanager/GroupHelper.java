@@ -41,7 +41,7 @@ public class GroupHelper extends BaseHelper {
     }
 
     public void selectGroup() {
-       clickCheckBox();
+       clickRegularCheckBox();
     }
 
     public void deleteGroup() {
