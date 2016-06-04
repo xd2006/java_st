@@ -15,6 +15,10 @@ public class GroupHelper extends BaseHelper {
     }
 
     public void returnToGroupPage() {
+        By headerLocator = By.xpath("//h1[.='Groups']");
+        if (isElementPresent(headerLocator)
+                && isElementPresent(By.name("new")))
+            return;
         click(By.linkText("group page"));
     }
 

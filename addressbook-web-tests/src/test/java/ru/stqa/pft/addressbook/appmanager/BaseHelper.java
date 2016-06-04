@@ -2,7 +2,10 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Alex on 29.05.2016.
@@ -44,5 +47,18 @@ public class BaseHelper {
         } catch (NoAlertPresentException e) {
             return false;
         }
+    }
+
+    protected boolean isElementPresent(By locator) {
+        try {
+            wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+            wd.findElement(locator);
+            wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+            return true;
+        } catch (NoSuchElementException e) {
+            wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+            return false;
+        }
+
     }
 }

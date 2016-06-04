@@ -46,7 +46,7 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void returnToHomePage() {
-        click(By.linkText("home page"));
+        if (!isElementPresent(By.id("maintable"))) click(By.linkText("home page"));
     }
 
     public void selectContact() {
