@@ -12,10 +12,12 @@ import java.util.concurrent.TimeUnit;
  * Created by Alex on 29.05.2016.
  */
 public class BaseHelper {
-    WebDriver wd;
+    protected WebDriver wd;
+    protected ApplicationManager app;
 
-    public BaseHelper(WebDriver wd) {
-        this.wd = wd;
+    public BaseHelper(ApplicationManager app) {
+        this.app = app;
+        this.wd = app.wd;
     }
 
     protected void click(By locator) {

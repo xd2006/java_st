@@ -38,13 +38,12 @@ public class ApplicationManager {
             wd = new InternetExplorerDriver();
         }
 
-
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         wd.get("http://localhost/addressbook/");
-        groupHelper = new GroupHelper(wd);
-        navigationHelper = new NavigationHelper(wd);
-        contactHelper = new ContactHelper(wd);
-        sessionHelper = new SessionHelper(wd);
+        groupHelper = new GroupHelper(this);
+        navigationHelper = new NavigationHelper(this);
+        contactHelper = new ContactHelper(this);
+        sessionHelper = new SessionHelper(this);
         sessionHelper.login("admin", "secret");
     }
 
