@@ -54,12 +54,12 @@ public class BaseHelper {
 
     protected boolean isElementPresent(By locator) {
         try {
-            wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+            setTimeout(1);
             wd.findElement(locator);
-            wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+           setTimeout(60);
             return true;
         } catch (NoSuchElementException e) {
-            wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+            setTimeout(60);
             return false;
         }
 
@@ -68,5 +68,10 @@ public class BaseHelper {
     protected void select(By selectLocator, String itemText) {
         if (itemText != null)
             new Select(wd.findElement(selectLocator)).selectByVisibleText(itemText);
+    }
+
+    protected void setTimeout(int timeoutSeconds) {
+
+        wd.manage().timeouts().implicitlyWait(timeoutSeconds, TimeUnit.SECONDS);
     }
 }

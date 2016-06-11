@@ -73,5 +73,13 @@ public class ContactHelper extends BaseHelper {
         fillContactForm(contact, true);
         submitContactFormCreation();
         returnToHomePage();
+        //app.getNavigationHelper().gotoHomePage();
+    }
+
+    public int getContactsCount() {
+        setTimeout(2);
+        int count =  wd.findElements(By.name("selected[]")).size();
+        setTimeout(30);
+        return count;
     }
 }
