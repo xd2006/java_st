@@ -45,14 +45,14 @@ public class ContactHelper extends BaseHelper {
         if (!isElementPresent(By.id("maintable"))) click(By.linkText("home page"));
     }
 
-    public void selectContact() {
-        clickRegularCheckBox();
+    public void selectContact(int index) {
+        clickRegularCheckBox(index);
     }
 
 
-    public void initContactModification() {
+    public void initContactModification(int index) {
 
-        click(By.xpath(".//*[@id='maintable']/tbody/tr/td[8]/a/img"));
+        wd.findElements(By.xpath(".//*[@id='maintable']/tbody/tr/td[8]/a/img")).get(index).click();
 
     }
 

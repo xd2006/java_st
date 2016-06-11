@@ -35,8 +35,9 @@ public class BaseHelper {
         }
     }
 
-    protected void clickRegularCheckBox() {
-        click(By.name("selected[]"));
+    protected void clickRegularCheckBox(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
+        //click(By.name("selected[]"));
     }
 
     public void acceptAlert() {
