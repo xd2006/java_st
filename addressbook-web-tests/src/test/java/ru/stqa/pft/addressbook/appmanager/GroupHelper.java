@@ -67,14 +67,6 @@ public class GroupHelper extends BaseHelper {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public int getGroupCount() {
-
-        setTimeout(2);
-        int count = wd.findElements(By.name("selected[]")).size();
-        setTimeout(30);
-        return count;
-
-    }
 
     public List<GroupData> getGroupList() {
         List<GroupData> groups = new ArrayList<GroupData>();
@@ -82,7 +74,8 @@ public class GroupHelper extends BaseHelper {
 
         for (WebElement element : elements) {
             String name = element.getText();
-            GroupData group = new GroupData(name, null, null);
+            String id = element.findElement(By.tagName("input")).getAttribute("value");
+            GroupData group = new GroupData(id, name, null, null);
             groups.add(group);
         }
         return groups;
