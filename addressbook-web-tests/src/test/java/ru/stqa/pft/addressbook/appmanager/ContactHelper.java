@@ -1,8 +1,12 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Alex on 29.05.2016.
@@ -81,5 +85,23 @@ public class ContactHelper extends BaseHelper {
         int count =  wd.findElements(By.name("selected[]")).size();
         setTimeout(30);
         return count;
+    }
+
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<>();
+        setTimeout(2);
+        List<WebElement> elements = wd.findElements(By.xpath(".//*[@id='maintable']/tbody/tr[@name='entry']"));
+        setTimeout(30);
+        if (elements.size()>0) {
+            for (WebElement element : elements) {
+                int id = Integer.parseInt(element.findElement(By.xpath("./td[1]/input")).getAttribute("value"));
+                String lastName = element.findElement(By.xpath("./td[2]")).getText();
+                String name = element.findElement(By.xpath("./td[3]")).getText();
+
+                ContactData contact = new ContactData(id, name, lastName);
+                contacts.add(contact);
+            }
+        }
+        return contacts;
     }
 }
