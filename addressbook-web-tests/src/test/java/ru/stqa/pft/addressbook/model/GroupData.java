@@ -11,13 +11,13 @@ public class GroupData {
     }
 
 
-   // @Override
-//    public String toString() {
-//        return "GroupData{" +
-//                "id='" + id + '\'' +
-//                ", name='" + name + '\'' +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "GroupData{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {

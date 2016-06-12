@@ -80,12 +80,12 @@ public class ContactHelper extends BaseHelper {
         //app.getNavigationHelper().gotoHomePage();
     }
 
-    public int getContactsCount() {
-        setTimeout(2);
-        int count =  wd.findElements(By.name("selected[]")).size();
-        setTimeout(30);
-        return count;
-    }
+//    public int getContactsCount() {
+//        setTimeout(2);
+//        int count =  wd.findElements(By.name("selected[]")).size();
+//        setTimeout(30);
+//        return count;
+//    }
 
     public List<ContactData> getContactList() {
         List<ContactData> contacts = new ArrayList<>();
