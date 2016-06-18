@@ -1,48 +1,80 @@
 package ru.stqa.pft.addressbook.model;
 
 public class ContactData {
-    private int id;
-    private final String name;
-    private final String middleName;
-    private final String lastName;
-    private final String nickname;
-    private final String title;
-    private final String company;
-    private final String address;
-    private final String mobilePhone;
-    private final String email;
-    private final String homepage;
+    private int id = Integer.MAX_VALUE;
+    private String name;
+    private String middleName;
+    private String lastName;
+    private String nickname;
+    private String title;
+    private String company;
+    private String address;
+
+    public ContactData withId(int id) {
+        this.id = id;
+        return this;
+    }
+
+    public ContactData withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public ContactData withMiddleName(String middleName) {
+        this.middleName = middleName;
+        return this;
+    }
+
+    public ContactData withLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public ContactData withNickname(String nickname) {
+        this.nickname = nickname;
+        return this;
+    }
+
+    public ContactData withTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public ContactData withCompany(String company) {
+        this.company = company;
+        return this;
+    }
+
+    public ContactData withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public ContactData withMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+        return this;
+    }
+
+    public ContactData withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public ContactData withHomepage(String homepage) {
+        this.homepage = homepage;
+        return this;
+    }
+
+    public ContactData withGroup(String group) {
+        this.group = group;
+        return this;
+    }
+
+    private String mobilePhone;
+    private String email;
+    private String homepage;
     private String group;
 
-    public ContactData(int id, String name, String lastName) {
-        this.id = id;
-        this.name = name;
-        this.middleName = null;
-        this.lastName = lastName;
-        this.nickname = null;
-        this.title = null;
-        this.company = null;
-        this.address = null;
-        this.mobilePhone = null;
-        this.email = null;
-        this.homepage = null;
-        this.group = null;
-    }
-
-    public ContactData(String name, String middleName, String lastName, String nickname, String title, String company, String address, String mobilePhone, String email, String homepage, String group) {
-        this.id = Integer.MAX_VALUE;
-        this.name = name;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.nickname = nickname;
-        this.title = title;
-        this.company = company;
-        this.address = address;
-        this.mobilePhone = mobilePhone;
-        this.email = email;
-        this.homepage = homepage;
-        this.group = group;
-    }
 
     public String getName() {
         return name;
@@ -104,6 +136,7 @@ public class ContactData {
 
         ContactData that = (ContactData) o;
 
+        if (id != that.id) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
 
@@ -111,7 +144,8 @@ public class ContactData {
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         return result;
     }

@@ -4,36 +4,41 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Alex on 29.05.2016.
  */
 public class ContactModificationTests extends TestBase {
 
+    public void ensurePreconditions()
+    {
+        app.goTo().homePage();
+        if (app.contact().getAll().size()==0) {
+            app.contact().create(new ContactData().withName("name").withMiddleName("maname").withLastName("last name")
+                    .withNickname("nickname").withTitle("title").withCompany("company").withAddress("address").withMobilePhone("mobile")
+                    .withEmail("mail@company.com").withHomepage("www.homepage.com"));
+        }
+    }
+
     @Test
     public void testContactModification() {
 
-        if (!app.getContactHelper().isThereAContact()) {
-            app.getContactHelper().createContact(new ContactData("name", "maname", "last name", "nickname", "title", "company", "address", "mobile", "mail@company.com", "www.homepage.com",null));
-        }
-        List<ContactData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().initContactModification(before.size()-1);
 
-        ContactData contact = new ContactData("name edit 1", "maname edit 1", "last name edit 1",
-                "nickname edit", "title edit", "company edit", "address edit", "mobile edit", "mail_edit@company.com", "www.homepage_edit.com",null);
-        app.getContactHelper().fillContactForm(contact,false);
-        app.getContactHelper().submitContactFormModification();
-        app.getContactHelper().returnToHomePage();
-        List<ContactData> after = app.getContactHelper().getContactList();
+        Set<ContactData> before = app.contact().getAll();
+        ContactData modifiedContact = before.iterator().next();
+        ContactData contact = new ContactData().withId(modifiedContact.getId()).withName("name edit 1").withMiddleName("maname edit 1").withLastName("last name edit 1").withNickname(
+                "nickname edit").withTitle("title edit").withCompany("company edit").withAddress("address edit").withMobilePhone("mobile edit")
+                .withEmail("mail_edit@company.com").withHomepage("www.homepage_edit.com");
+        app.contact().modify(contact);
+        Set<ContactData> after = app.contact().getAll();
         Assert.assertEquals(after.size(), before.size(), "Number of contacts shouldn't be changed");
-        before.remove(before.size()-1);
+        before.remove(modifiedContact);
         before.add(contact);
-        Comparator<? super ContactData> byId = (c1, c2)-> Integer.compare(c1.getId(),c2.getId());
-        before.sort(byId);
-        after.sort(byId);
+
         Assert.assertEquals(before,after);
     }
+
+
 
 }
