@@ -72,6 +72,7 @@ public class ContactHelper extends BaseHelper {
         app.contact().initContactModification(contact.getId());
         app.contact().fillContactForm(contact,false);
         app.contact().submitContactFormModification();
+        contactCache = null;
         app.contact().returnToHomePage();
     }
 
@@ -79,6 +80,7 @@ public class ContactHelper extends BaseHelper {
         app.contact().selectContact(contact.getId());
         app.contact().deleteContact();
         app.contact().acceptAlert();
+        contactCache = null;
         app.goTo().homePage();
     }
 
@@ -90,6 +92,7 @@ public class ContactHelper extends BaseHelper {
         initContactCreation();
         fillContactForm(contact, true);
         submitContactFormCreation();
+        contactCache = null;
         returnToHomePage();
     }
 
@@ -100,8 +103,15 @@ public class ContactHelper extends BaseHelper {
         return count;
     }
 
+    private Contacts contactCache = null;
+
     public Contacts getAll() {
-        Contacts contacts = new Contacts();
+
+            if (contactCache !=null) {
+                return new Contacts(contactCache);
+            }
+
+        contactCache = new Contacts();
         setTimeout(2);
         List<WebElement> elements = wd.findElements(By.xpath(".//*[@id='maintable']/tbody/tr[@name='entry']"));
         setTimeout(30);
@@ -111,9 +121,9 @@ public class ContactHelper extends BaseHelper {
                 String lastName = element.findElement(By.xpath("./td[2]")).getText();
                 String name = element.findElement(By.xpath("./td[3]")).getText();
                 ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName);
-                contacts.add(contact);
+                contactCache.add(contact);
             }
         }
-        return contacts;
+        return new Contacts(contactCache);
     }
 }
