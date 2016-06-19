@@ -56,7 +56,7 @@ public class ContactHelper extends BaseHelper {
 
     public void initContactModification(int id) {
 
-        wd.findElement(By.xpath(".//*[@id='maintable']/tbody/tr[.//input[@id='"+id+"']]/td[8]/a/img")).click();
+        wd.findElement(By.xpath(String.format(".//*[@id='maintable']/tbody/tr[.//input[@id='%s']]/td[8]/a/img", id))).click();
 
     }
 
@@ -125,5 +125,26 @@ public class ContactHelper extends BaseHelper {
             }
         }
         return new Contacts(contactCache);
+    }
+
+    public ContactData infoFromEditForm(ContactData contact) {
+
+        initContactModification(contact.getId());
+        String firstName = getValue(By.name("firstname"));
+        String middleName = getValue(By.name("middlename"));
+        String lastName = getValue(By.name("lastname"));
+        String nickName = getValue(By.name("nickname"));
+        String title = getValue(By.name("title"));
+        String company = getValue(By.name("company"));
+        String address = getValue(By.name("address"));
+        String mobile = getValue(By.name("mobile"));
+        String home = getValue(By.name("home"));
+        String work = getValue(By.name("work"));
+        String email = getValue(By.name("email"));
+        String homepage = getValue(By.name("homepage"));
+        wd.navigate().back();
+        return new ContactData().withId(contact.getId()).withName(firstName).withMiddleName(middleName).withLastName(lastName)
+                .withNickname(nickName).withTitle(title).withCompany(company).withAddress(address).withMobilePhone(mobile)
+                .withHomepage(homepage).withHomePhone(home).withWorkPhone(work).withEmail(email);
     }
 }

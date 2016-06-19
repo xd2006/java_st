@@ -35,6 +35,11 @@ public class BaseHelper {
         }
     }
 
+    protected String getValue(By locator)
+    {
+        return wd.findElement(locator).getAttribute("value");
+    }
+
     protected void clickRegularCheckBox(int index) {
         wd.findElements(By.name("selected[]")).get(index).click();
         //click(By.name("selected[]"));
