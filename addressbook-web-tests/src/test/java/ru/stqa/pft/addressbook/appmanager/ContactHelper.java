@@ -122,14 +122,9 @@ public class ContactHelper extends BaseHelper {
                 int id = Integer.parseInt(element.findElement(By.xpath("./td[1]/input")).getAttribute("value"));
                 String lastName = element.findElement(By.xpath("./td[2]")).getText();
                 String name = element.findElement(By.xpath("./td[3]")).getText();
-                String[] phones = element.findElement(By.xpath("./td[6]")).getText().split("\n");
-                ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName);
-                if (phones.length==3) {
-                    contact.withHomePhone(phones[0]).withWorkPhone(phones[2]).withMobilePhone(phones[1]);
-                }
-                else {
-                    contact.withMobilePhone(phones[0]);
-                }
+                String phones = element.findElement(By.xpath("./td[6]")).getText();
+                ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName)
+                        .withAllPhones(phones);
                 contactCache.add(contact);
             }
         }
