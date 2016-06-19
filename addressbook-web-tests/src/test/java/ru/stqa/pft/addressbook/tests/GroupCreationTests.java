@@ -22,4 +22,19 @@ public class GroupCreationTests extends TestBase {
 
 
     }
+
+    @Test
+    public void testBadGroupCreation() {
+
+        app.goTo().gotoGroupPage();
+        Groups before = app.group().getAll();
+        GroupData group = new GroupData().withName("group name 2'").withHeader("header").withFooter("footer");
+        app.group().create(group);
+        assertThat(app.group().getGroupCount(), equalTo(before.size()));
+        Groups after = app.group().getAll();
+               assertThat(after, equalTo(before));
+
+
+    }
+
 }
