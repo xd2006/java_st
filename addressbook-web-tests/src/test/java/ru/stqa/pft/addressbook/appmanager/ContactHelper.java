@@ -32,6 +32,8 @@ public class ContactHelper extends BaseHelper {
         type(By.name("address"), contactData.getAddress());
         type(By.name("mobile"), contactData.getMobilePhone());
         type(By.name("email"), contactData.getEmail());
+        type(By.name("email2"), contactData.getEmail2());
+        type(By.name("email3"), contactData.getEmail3());
         type(By.name("homepage"), contactData.getHomepage());
         type(By.name("home"),contactData.getHomePhone());
         type(By.name("work"),contactData.getWorkPhone());
@@ -123,8 +125,10 @@ public class ContactHelper extends BaseHelper {
                 String lastName = element.findElement(By.xpath("./td[2]")).getText();
                 String name = element.findElement(By.xpath("./td[3]")).getText();
                 String phones = element.findElement(By.xpath("./td[6]")).getText();
+                String emails = element.findElement(By.xpath("./td[5]")).getText();
+                String address = element.findElement(By.xpath("./td[4]")).getText();
                 ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName)
-                        .withAllPhones(phones);
+                        .withAllPhones(phones).withAllEmails(emails).withAddress(address);
                 contactCache.add(contact);
             }
         }
@@ -145,10 +149,12 @@ public class ContactHelper extends BaseHelper {
         String home = getValue(By.name("home"));
         String work = getValue(By.name("work"));
         String email = getValue(By.name("email"));
+        String email2 = getValue(By.name("email2"));
+        String email3 = getValue(By.name("email3"));
         String homepage = getValue(By.name("homepage"));
         wd.navigate().back();
         return new ContactData().withId(contact.getId()).withName(firstName).withMiddleName(middleName).withLastName(lastName)
                 .withNickname(nickName).withTitle(title).withCompany(company).withAddress(address).withMobilePhone(mobile)
-                .withHomepage(homepage).withHomePhone(home).withWorkPhone(work).withEmail(email);
+                .withHomepage(homepage).withHomePhone(home).withWorkPhone(work).withEmail(email).withEmail2(email2).withEmail3(email3);
     }
 }
