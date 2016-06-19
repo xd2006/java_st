@@ -4,10 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Alex on 29.05.2016.
@@ -101,8 +100,8 @@ public class ContactHelper extends BaseHelper {
         return count;
     }
 
-    public Set<ContactData> getAll() {
-        Set<ContactData> contacts = new HashSet<ContactData>();
+    public Contacts getAll() {
+        Contacts contacts = new Contacts();
         setTimeout(2);
         List<WebElement> elements = wd.findElements(By.xpath(".//*[@id='maintable']/tbody/tr[@name='entry']"));
         setTimeout(30);
@@ -111,7 +110,6 @@ public class ContactHelper extends BaseHelper {
                 int id = Integer.parseInt(element.findElement(By.xpath("./td[1]/input")).getAttribute("value"));
                 String lastName = element.findElement(By.xpath("./td[2]")).getText();
                 String name = element.findElement(By.xpath("./td[3]")).getText();
-
                 ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName);
                 contacts.add(contact);
             }
