@@ -33,6 +33,8 @@ public class ContactHelper extends BaseHelper {
         type(By.name("mobile"), contactData.getMobilePhone());
         type(By.name("email"), contactData.getEmail());
         type(By.name("homepage"), contactData.getHomepage());
+        type(By.name("home"),contactData.getHomePhone());
+        type(By.name("work"),contactData.getWorkPhone());
         if (creation) {
             Assert.assertTrue(isElementPresent(By.name("new_group")));
             select(By.name("new_group"), contactData.getGroup());
@@ -120,7 +122,14 @@ public class ContactHelper extends BaseHelper {
                 int id = Integer.parseInt(element.findElement(By.xpath("./td[1]/input")).getAttribute("value"));
                 String lastName = element.findElement(By.xpath("./td[2]")).getText();
                 String name = element.findElement(By.xpath("./td[3]")).getText();
+                String[] phones = element.findElement(By.xpath("./td[6]")).getText().split("\n");
                 ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName);
+                if (phones.length==3) {
+                    contact.withHomePhone(phones[0]).withWorkPhone(phones[2]).withMobilePhone(phones[1]);
+                }
+                else {
+                    contact.withMobilePhone(phones[0]);
+                }
                 contactCache.add(contact);
             }
         }
