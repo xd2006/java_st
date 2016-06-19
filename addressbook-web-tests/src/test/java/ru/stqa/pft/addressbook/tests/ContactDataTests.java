@@ -28,6 +28,7 @@ public class ContactDataTests extends TestBase {
     }
 
     @Test
+    public void testContactData()
     {
         app.goTo().homePage();
         ContactData contact = app.contact().getAll().iterator().next();
