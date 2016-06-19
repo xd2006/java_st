@@ -3,10 +3,9 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Alex on 29.05.2016.
@@ -85,8 +84,8 @@ public class GroupHelper extends BaseHelper {
 
 
 
-    public Set<GroupData> getAll() {
-        Set<GroupData> groups = new HashSet<GroupData>();
+    public Groups getAll() {
+        Groups groups = new Groups();
         setTimeout(2);
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         setTimeout(30);
