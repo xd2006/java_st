@@ -64,6 +64,12 @@ public class ContactHelper extends BaseHelper {
 
     }
 
+    public void openContactDetails(int id) {
+
+        wd.findElement(By.xpath(String.format(".//*[@id='maintable']/tbody/tr[.//input[@id='%s']]/td[7]/a/img", id))).click();
+
+    }
+
     public void submitContactFormModification() {
         click(By.name("update"));
     }
@@ -129,6 +135,8 @@ public class ContactHelper extends BaseHelper {
                 String address = element.findElement(By.xpath("./td[4]")).getText();
                 ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName)
                         .withAllPhones(phones).withAllEmails(emails).withAddress(address);
+
+
                 contactCache.add(contact);
             }
         }
@@ -156,5 +164,11 @@ public class ContactHelper extends BaseHelper {
         return new ContactData().withId(contact.getId()).withName(firstName).withMiddleName(middleName).withLastName(lastName)
                 .withNickname(nickName).withTitle(title).withCompany(company).withAddress(address).withMobilePhone(mobile)
                 .withHomepage(homepage).withHomePhone(home).withWorkPhone(work).withEmail(email).withEmail2(email2).withEmail3(email3);
+    }
+
+    public String infoFromDetailsForm(ContactData contact) {
+        openContactDetails(contact.getId());
+        return wd.findElement(By.id("content")).getText();
+
     }
 }

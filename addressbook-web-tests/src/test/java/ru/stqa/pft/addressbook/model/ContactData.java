@@ -16,6 +16,10 @@ public class ContactData {
     private String group;
     private String workPhone;
     private String homePhone;
+    private String allPhones;
+    private String allEmails;
+    private String address;
+
 
     public String getAllEmails() {
         return allEmails;
@@ -25,10 +29,6 @@ public class ContactData {
         this.allEmails = allEmails;
         return this;
     }
-
-    private String allPhones;
-    private String allEmails;
-    private String address;
 
     public String getEmail2() {
         return email2;
