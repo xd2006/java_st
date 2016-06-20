@@ -25,6 +25,12 @@ public class ContactDetailsTests extends TestBase {
                             "DDF\n" +
                             "    , 888878 -+ TY(98A)  ").withMobilePhone("  +33-333- 988 ")
                     .withEmail("mail@company.com  ").withEmail2("  mail2@company.com").withEmail3(" private_mail@company.com  ").withHomepage("www.homepage.com").withWorkPhone("11 11 977  ").withHomePhone("2 (222) 765-12-34"));
+//            app.contact().create(new ContactData().withName("name")
+//                    .withAddress("  address, 22000 avn\n" +
+//                            "DDF\n" +
+//                            "    , 888878 -+ TY(98A)  ").withMobilePhone("  +33-333- 988 ")
+//                    .withEmail("mail@company.com  ").withEmail3(" private_mail@company.com  ").withHomepage("www.homepage.com").withWorkPhone("11 11 977  "));
+
         }
     }
 
@@ -47,14 +53,14 @@ public class ContactDetailsTests extends TestBase {
     }
 
     private String getHomePage(ContactData contact) {
-        return contact.getHomepage()=="" ? "":"Homepage:\n"+contact.getHomepage().trim();
+        return contact.getHomepage()=="" ? "":("Homepage:\n"+contact.getHomepage().trim());
     }
 
 
     private String mergePhones(ContactData contact) {
-        String homePhone = contact.getHomePhone()=="" ? "":"H: "+contact.getHomePhone().trim();
-        String mobilePhone = contact.getMobilePhone()=="" ? "":"M: "+contact.getMobilePhone().trim();
-        String workPhone = contact.getWorkPhone()=="" ? "":"W: "+contact.getWorkPhone().trim();
+        String homePhone = contact.getHomePhone().equals("") ? "":("H: "+contact.getHomePhone().trim());
+        String mobilePhone = contact.getMobilePhone().equals("") ? "":("M: "+contact.getMobilePhone().trim());
+        String workPhone = contact.getWorkPhone().equals("") ? "":("W: "+contact.getWorkPhone().trim());
 
         return Arrays.asList(homePhone,mobilePhone,workPhone)
                 .stream().filter(s->!s.equals(""))
@@ -67,9 +73,9 @@ public class ContactDetailsTests extends TestBase {
                 .collect(Collectors.joining(" "));
     }
     private String mergeEmails(ContactData contact) {
-        String email = contact.getEmail()=="" ? "": contact.getEmail().trim()+" (www."+contact.getEmail().split("@")[1]+")";
-        String email2 = contact.getEmail2()=="" ? "": contact.getEmail2().trim()+" (www."+contact.getEmail2().split("@")[1]+")";
-        String email3 = contact.getEmail3()=="" ? "": contact.getEmail3().trim()+" (www."+contact.getEmail3().split("@")[1]+")";
+        String email = contact.getEmail().equals("") ? "":(contact.getEmail().trim()+" (www."+contact.getEmail().split("@")[1]+")");
+        String email2 = contact.getEmail2().equals("") ? "": (contact.getEmail2().trim()+" (www."+contact.getEmail2().split("@")[1]+")");
+        String email3 = contact.getEmail3().equals("") ? "": (contact.getEmail3().trim()+" (www."+contact.getEmail3().split("@")[1]+")");
 
         return Arrays.asList(email.trim(),email2.trim(),email3.trim())
                 .stream().filter(s->!s.equals(""))
