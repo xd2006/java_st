@@ -6,6 +6,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -34,6 +35,14 @@ public class BaseHelper {
             }
         }
     }
+
+    protected void attach(By locator, File file) {
+        if (file != null) {
+
+                wd.findElement(locator).sendKeys(file.getAbsolutePath());
+            }
+        }
+
 
     protected String getValue(By locator)
     {
@@ -80,4 +89,6 @@ public class BaseHelper {
 
         wd.manage().timeouts().implicitlyWait(timeoutSeconds, TimeUnit.SECONDS);
     }
+
+
 }
