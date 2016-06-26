@@ -21,7 +21,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class ContactDataGenerator {
 
-    @Parameter(names = "-c", description = "Group count")
+    @Parameter(names = "-c", description = "Contact count")
     public int count;
 
     @Parameter(names = "-f", description = "Target file")
