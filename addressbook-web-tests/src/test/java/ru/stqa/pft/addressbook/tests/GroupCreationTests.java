@@ -22,6 +22,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class GroupCreationTests extends TestBase {
 
 
+
     @DataProvider
     public Iterator<Object[]> validGroupsXML() throws IOException {
         try(BufferedReader reader = new BufferedReader(new FileReader(new File(app.properties.getProperty("data.validGroupsXML"))))) {
