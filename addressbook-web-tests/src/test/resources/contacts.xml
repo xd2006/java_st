@@ -1,0 +1,66 @@
+<list>
+  <contact>
+    <name>test 0</name>
+    <middleName>mname 0</middleName>
+    <lastName>last name 0</lastName>
+    <nickname>nickname 0</nickname>
+    <title>title 0</title>
+    <company>company 0</company>
+    <mobilePhone>+345 9870</mobilePhone>
+    <email>test0@company.com</email>
+    <homepage>homepage_0.com</homepage>
+    <workPhone>+345(10)870</workPhone>
+    <homePhone>+3651-08-70</homePhone>
+    <address>address 
+ 220 0</address>
+    <photoPath>src\test\resources\473a.gif</photoPath>
+  </contact>
+  <contact>
+    <name>test 1</name>
+    <middleName>mname 1</middleName>
+    <lastName>last name 1</lastName>
+    <nickname>nickname 1</nickname>
+    <title>title 1</title>
+    <company>company 1</company>
+    <mobilePhone>+345 9871</mobilePhone>
+    <email>test1@company.com</email>
+    <homepage>homepage_1.com</homepage>
+    <workPhone>+345(10)871</workPhone>
+    <homePhone>+3651-08-71</homePhone>
+    <address>address 
+ 220 1</address>
+    <photoPath>src\test\resources\ava.jpg</photoPath>
+  </contact>
+  <contact>
+    <name>test 2</name>
+    <middleName>mname 2</middleName>
+    <lastName>last name 2</lastName>
+    <nickname>nickname 2</nickname>
+    <title>title 2</title>
+    <company>company 2</company>
+    <mobilePhone>+345 9872</mobilePhone>
+    <email>test2@company.com</email>
+    <homepage>homepage_2.com</homepage>
+    <workPhone>+345(10)872</workPhone>
+    <homePhone>+3651-08-72</homePhone>
+    <address>address 
+ 220 2</address>
+    <photoPath>src\test\resources\473a.gif</photoPath>
+  </contact>
+  <contact>
+    <name>test 3</name>
+    <middleName>mname 3</middleName>
+    <lastName>last name 3</lastName>
+    <nickname>nickname 3</nickname>
+    <title>title 3</title>
+    <company>company 3</company>
+    <mobilePhone>+345 9873</mobilePhone>
+    <email>test3@company.com</email>
+    <homepage>homepage_3.com</homepage>
+    <workPhone>+345(10)873</workPhone>
+    <homePhone>+3651-08-73</homePhone>
+    <address>address 
+ 220 3</address>
+    <photoPath>src\test\resources\ava.jpg</photoPath>
+  </contact>
+</list>
