@@ -60,20 +60,18 @@ public class ContactDataGenerator {
     private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(contacts);
-        Writer writer = new FileWriter(file);
-        writer.write(json);
-        writer.close();
-
+        try(Writer writer = new FileWriter(file)) {
+            writer.write(json);
+        }
     }
 
     private void saveAsXml(List<ContactData> contacts, File file) throws IOException {
         XStream xstream = new XStream();
         xstream.processAnnotations(ContactData.class);
         String xml = xstream.toXML(contacts);
-        Writer writer = new FileWriter(file);
-        writer.write(xml);
-        writer.close();
-
+        try(Writer writer = new FileWriter(file);) {
+            writer.write(xml);
+        }
     }
 
 
@@ -92,7 +90,6 @@ public class ContactDataGenerator {
                     .withMobilePhone(String.format("+345 987%s", i)).withEmail(String.format("test%s@company.com", i)).withHomepage(String.format("homepage_%s.com", i)).withWorkPhone(String.format("+345(10)87%s", i))
                     .withHomePhone(String.format("+3651-08-7%s", i)).withPhotoPath(photo.getPath()));
         }
-
         return contacts;
     }
 }
