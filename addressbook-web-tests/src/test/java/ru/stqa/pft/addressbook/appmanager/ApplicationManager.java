@@ -38,6 +38,10 @@ public class ApplicationManager {
     }
 
     public void init() throws IOException {
+
+        String target = System.getProperty("target","local");
+        properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties",target))));
+
         dbHelper = new DbHelper(this);
 
         if (browser.equals(BrowserType.FIREFOX)) {
@@ -48,9 +52,6 @@ public class ApplicationManager {
             wd = new InternetExplorerDriver();
         }
 
-        String target = System.getProperty("target","local");
-
-        properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties",target))));
 
         wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         wd.get(properties.getProperty("web.baseUrl"));

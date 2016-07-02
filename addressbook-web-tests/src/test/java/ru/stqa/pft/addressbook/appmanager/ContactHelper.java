@@ -38,6 +38,7 @@ public class ContactHelper extends BaseHelper {
         type(By.name("home"),contactData.getHomePhone());
         type(By.name("work"),contactData.getWorkPhone());
         attach(By.name("photo"),contactData.getPhoto());
+
         if (creation) {
             Assert.assertTrue(isElementPresent(By.name("new_group")));
             select(By.name("new_group"), contactData.getGroup());

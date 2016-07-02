@@ -15,10 +15,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class ContactDataTests extends TestBase {
     @BeforeMethod
-    public void ensurePreconditions()
-    {
-        app.goTo().homePage();
-        if (app.contact().getAll().size()==0) {
+    public void ensurePreconditions() {
+        if (app.db().contacts().size() == 0) {
+            app.goTo().homePage();
             app.contact().create(new ContactData().withName("name").withMiddleName("maname").withLastName("last name")
                     .withNickname("nickname").withTitle("title").withCompany("company").withAddress("  address, 22000 jjj\n" +
                             "DDF\n" +
@@ -28,40 +27,39 @@ public class ContactDataTests extends TestBase {
     }
 
     @Test
-    public void testContactData()
-    {
+    public void testContactData() {
         app.goTo().homePage();
         ContactData contact = app.contact().getAll().iterator().next();
         ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
-        assertThat(contact.getAllPhones(),equalTo(mergePhones(contactInfoFromEditForm)));
-        assertThat(contact.getAllEmails(),equalTo(mergeEmails(contactInfoFromEditForm)));
-        assertThat(contact.getAddress(),equalTo(cleanedWhitespaces(contactInfoFromEditForm.getAddress().trim())));
+        assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
+        assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromEditForm)));
+        assertThat(contact.getAddress(), equalTo(cleanedWhitespaces(contactInfoFromEditForm.getAddress().trim())));
     }
 
     private String mergeEmails(ContactData contact) {
-        return Arrays.asList(contact.getEmail().trim(),contact.getEmail2().trim(),contact.getEmail3().trim())
-                .stream().filter(s->!s.equals(""))
+        return Arrays.asList(contact.getEmail().trim(), contact.getEmail2().trim(), contact.getEmail3().trim())
+                .stream().filter(s -> !s.equals(""))
                 .map(ContactDataTests::shortenedWhitespaces)
                 .collect(Collectors.joining("\n"));
     }
 
     private String mergePhones(ContactData contact) {
-        return Arrays.asList(contact.getHomePhone(),contact.getMobilePhone(),contact.getWorkPhone())
-                .stream().filter(s->!s.equals(""))
+        return Arrays.asList(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone())
+                .stream().filter(s -> !s.equals(""))
                 .map(ContactDataTests::cleaned)
                 .collect(Collectors.joining("\n"));
     }
 
-    public static String cleaned(String phone){
-        return phone.replaceAll("[^+\\d]","");
+    public static String cleaned(String phone) {
+        return phone.replaceAll("[^+\\d]", "");
     }
 
-    public static String cleanedWhitespaces(String string){
-        return string.replaceAll("\\n\\s+","\n").replaceAll("\\s+\\n","\n");
+    public static String cleanedWhitespaces(String string) {
+        return string.replaceAll("\\n\\s+", "\n").replaceAll("\\s+\\n", "\n");
     }
 
-    public static String shortenedWhitespaces(String string){
-        return string.replaceAll("\\s+"," ");
+    public static String shortenedWhitespaces(String string) {
+        return string.replaceAll("\\s+", " ");
     }
 }

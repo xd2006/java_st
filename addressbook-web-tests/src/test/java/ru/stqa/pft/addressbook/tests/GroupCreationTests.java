@@ -22,10 +22,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class GroupCreationTests extends TestBase {
 
 
-
     @DataProvider
     public Iterator<Object[]> validGroupsXML() throws IOException {
-        try(BufferedReader reader = new BufferedReader(new FileReader(new File(app.properties.getProperty("data.validGroupsXML"))))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File(app.properties.getProperty("data.validGroupsXML"))))) {
             String xml = "";
             String line = reader.readLine();
             while (line != null && !line.equals("")) {
@@ -41,7 +40,7 @@ public class GroupCreationTests extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validGroupsJson() throws IOException {
-        try(BufferedReader reader = new BufferedReader(new FileReader(new File(app.properties.getProperty("data.validGroupsJson"))))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File(app.properties.getProperty("data.validGroupsJson"))))) {
             String json = "";
             String line = reader.readLine();
             while (line != null && !line.equals("")) {
@@ -61,9 +60,9 @@ public class GroupCreationTests extends TestBase {
     public void testGroupCreation(GroupData group) {
 
         app.goTo().gotoGroupPage();
-        Groups before = app.group().getAll();
+        Groups before = app.db().groups();
         app.group().create(group);
-        Groups after = app.group().getAll();
+        Groups after = app.db().groups();
         assertThat(after.size(), equalTo(before.size() + 1));
         assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
 
@@ -73,11 +72,11 @@ public class GroupCreationTests extends TestBase {
     public void testBadGroupCreation() {
 
         app.goTo().gotoGroupPage();
-        Groups before = app.group().getAll();
+        Groups before = app.db().groups();
         GroupData group = new GroupData().withName("group name 2'").withHeader("header").withFooter("footer");
         app.group().create(group);
-        assertThat(app.group().getGroupCount(), equalTo(before.size()));
-        Groups after = app.group().getAll();
+        assertThat(app.db().groups().size(), equalTo(before.size()));
+        Groups after = app.db().groups();
         assertThat(after, equalTo(before));
 
     }

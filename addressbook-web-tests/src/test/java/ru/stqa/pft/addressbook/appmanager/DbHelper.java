@@ -10,6 +10,7 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -18,21 +19,22 @@ import java.util.List;
 public class DbHelper {
     protected ApplicationManager app;
     private final SessionFactory sessionFactory;
+
     public DbHelper(ApplicationManager app) {
         this.app = app;
 
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                .configure(app.properties.getProperty("db.hibernateCfg")) // configures settings
+                .configure(new File(app.properties.getProperty("db.hibernateCfg"))) // configures settings
                 .build();
-        sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
+        sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
     }
 
-    public Groups groups(){
+    public Groups groups() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List<GroupData> result = session.createQuery("from GroupData").list();
-        for ( GroupData group : result ) {
-            System.out.println( group);
+        for (GroupData group : result) {
+            System.out.println(group);
         }
         session.getTransaction().commit();
         session.close();
@@ -40,15 +42,18 @@ public class DbHelper {
 
     }
 
-    public Contacts contacts(){
+    public Contacts contacts() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List<ContactData> result = session.createQuery("from ContactData where deprecated = '0000-00-00'").list();
-        for ( ContactData contact : result ) {
+        for (ContactData contact : result) {
+            String cleanedAddress = contact.getAddress().replaceAll("\r", "");
+            contact.withAddress(cleanedAddress);
             System.out.println(contact);
         }
         session.getTransaction().commit();
         session.close();
+
         return new Contacts(result);
 
     }
