@@ -14,7 +14,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -59,12 +58,11 @@ public class ContactCreationTests extends TestBase{
     @Test(dataProvider = "validContactsJson")
     public void testContactCreation(ContactData contact) {
         app.goTo().homePage();
-        Contacts before = app.contact().getAll();
-        contact.withPhoto(contact.getPhoto());
+        Contacts before = app.db().contacts();
         app.contact().create(contact);
-        Set<ContactData> after = app.contact().getAll();
+        Contacts after = app.db().contacts();
         assertThat(after.size(),equalTo(before.size()+1));
-        assertThat(before.withAdded(contact.withId(after.stream().mapToInt((g)->g.getId()).max().getAsInt())),equalTo(after));
+        assertThat(before.withAdded(contact.withId(after.stream().mapToInt((c)->c.getId()).max().getAsInt())),equalTo(after));
 
     }
 
