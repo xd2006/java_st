@@ -88,7 +88,7 @@ public class ContactDataGenerator {
             contacts.add(new ContactData().withName(String.format("test %s", i)).withMiddleName(String.format("mname %s", i)).withLastName(String.format("last name %s", i))
                     .withNickname(String.format("nickname %s", i)).withTitle(String.format("title %s", i)).withCompany(String.format("company %s", i)).withAddress(String.format("address \n 220 %s", i))
                     .withMobilePhone(String.format("+345 987%s", i)).withEmail(String.format("test%s@company.com", i)).withHomepage(String.format("homepage_%s.com", i)).withWorkPhone(String.format("+345(10)87%s", i))
-                    .withHomePhone(String.format("+3651-08-7%s", i)).withPhotoPath(photo.getPath()));
+                    .withHomePhone(String.format("+3651-08-7%s", i)).withPhoto(photo));
         }
         return contacts;
     }

@@ -12,7 +12,7 @@
     "workPhone": "+345(10)870",
     "homePhone": "+3651-08-70",
     "address": "address \n 220 0",
-    "photoPath": "src\\test\\resources\\ava.jpg"
+    "photo": "src\\test\\resources\\473.gif"
   },
   {
     "name": "test 1",
@@ -27,7 +27,7 @@
     "workPhone": "+345(10)871",
     "homePhone": "+3651-08-71",
     "address": "address \n 220 1",
-    "photoPath": "src\\test\\resources\\ava.jpg"
+    "photo": "src\\test\\resources\\473a.gif"
   },
   {
     "name": "test 2",
@@ -42,7 +42,7 @@
     "workPhone": "+345(10)872",
     "homePhone": "+3651-08-72",
     "address": "address \n 220 2",
-    "photoPath": "src\\test\\resources\\ava.jpg"
+    "photo": "src\\test\\resources\\back.gif"
   },
   {
     "name": "test 3",
@@ -57,6 +57,6 @@
     "workPhone": "+345(10)873",
     "homePhone": "+3651-08-73",
     "address": "address \n 220 3",
-    "photoPath": "src\\test\\resources\\back.gif"
+    "photo": "src\\test\\resources\\473a.gif"
   }
 ]

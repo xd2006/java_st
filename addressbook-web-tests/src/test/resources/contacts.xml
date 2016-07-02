@@ -13,7 +13,7 @@
     <homePhone>+3651-08-70</homePhone>
     <address>address 
  220 0</address>
-    <photoPath>src\test\resources\473a.gif</photoPath>
+    <photo>src\test\resources\473.gif</photo>
   </contact>
   <contact>
     <name>test 1</name>
@@ -29,7 +29,7 @@
     <homePhone>+3651-08-71</homePhone>
     <address>address 
  220 1</address>
-    <photoPath>src\test\resources\ava.jpg</photoPath>
+    <photo>src\test\resources\473a.gif</photo>
   </contact>
   <contact>
     <name>test 2</name>
@@ -45,7 +45,7 @@
     <homePhone>+3651-08-72</homePhone>
     <address>address 
  220 2</address>
-    <photoPath>src\test\resources\473a.gif</photoPath>
+    <photo>src\test\resources\ava.jpg</photo>
   </contact>
   <contact>
     <name>test 3</name>
@@ -61,6 +61,6 @@
     <homePhone>+3651-08-73</homePhone>
     <address>address 
  220 3</address>
-    <photoPath>src\test\resources\ava.jpg</photoPath>
+    <photo>src\test\resources\473.gif</photo>
   </contact>
 </list>
