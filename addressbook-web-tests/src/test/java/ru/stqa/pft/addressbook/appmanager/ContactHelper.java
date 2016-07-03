@@ -117,7 +117,12 @@ public class ContactHelper extends BaseHelper {
 
     private Contacts contactCache = null;
 
+
     public Contacts getAll() {
+        return getAll(true);
+    }
+
+    public Contacts getAll(Boolean phonesEmailsNeeded) {
 
             if (contactCache !=null) {
                 return new Contacts(contactCache);
@@ -132,11 +137,14 @@ public class ContactHelper extends BaseHelper {
                 int id = Integer.parseInt(element.findElement(By.xpath("./td[1]/input")).getAttribute("value"));
                 String lastName = element.findElement(By.xpath("./td[2]")).getText();
                 String name = element.findElement(By.xpath("./td[3]")).getText();
-                String phones = element.findElement(By.xpath("./td[6]")).getText();
-                String emails = element.findElement(By.xpath("./td[5]")).getText();
                 String address = element.findElement(By.xpath("./td[4]")).getText();
                 ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName)
-                        .withAllPhones(phones).withAllEmails(emails).withAddress(address);
+                        .withAddress(address);
+                if (phonesEmailsNeeded) {
+                    String phones = element.findElement(By.xpath("./td[6]")).getText();
+                    String emails = element.findElement(By.xpath("./td[5]")).getText();
+                    contact.withAllPhones(phones).withAllEmails(emails);
+                }
 
 
                 contactCache.add(contact);
@@ -144,6 +152,7 @@ public class ContactHelper extends BaseHelper {
         }
         return new Contacts(contactCache);
     }
+
 
     public ContactData infoFromEditForm(ContactData contact) {
 

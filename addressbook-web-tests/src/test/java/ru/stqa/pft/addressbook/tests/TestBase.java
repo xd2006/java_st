@@ -59,9 +59,9 @@ public class TestBase {
     public void verifyContactListInUI() {
         if (Boolean.getBoolean("verifyUI")) {
             Contacts dbContacts = app.db().contacts();
-            Contacts uiContacts = app.contact().getAll();
+            Contacts uiContacts = app.contact().getAll(false);
             assertThat(uiContacts, equalTo(dbContacts.stream().map(c -> new ContactData().withId(c.getId()).withName(c.getName()).withLastName(c.getLastName())
-                   .withAddress(c.getAddress())).collect(Collectors.toSet())));
+                   .withAddress(c.getAddress().replaceAll("\\n\\s+", "\n").replaceAll("\\s+\\n", "\n"))).collect(Collectors.toSet())));
         }
     }
 }
