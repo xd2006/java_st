@@ -14,57 +14,6 @@
     "workPhone": "+345(10)870",
     "homePhone": "+3651-08-70",
     "address": "address \n 220 0",
-    "photo": "src\\test\\resources\\473a.gif"
-  },
-  {
-    "name": "test 1",
-    "middleName": "mname 1",
-    "lastName": "last name 1",
-    "nickname": "nickname 1",
-    "title": "title 1",
-    "company": "company 1",
-    "mobilePhone": "+345 9871",
-    "email": "test1@company.com",
-    "email2": "",
-    "email3": "",
-    "homepage": "homepage_1.com",
-    "workPhone": "+345(10)871",
-    "homePhone": "+3651-08-71",
-    "address": "address \n 220 1",
-    "photo": "src\\test\\resources\\473.gif"
-  },
-  {
-    "name": "test 2",
-    "middleName": "mname 2",
-    "lastName": "last name 2",
-    "nickname": "nickname 2",
-    "title": "title 2",
-    "company": "company 2",
-    "mobilePhone": "+345 9872",
-    "email": "test2@company.com",
-    "email2": "",
-    "email3": "",
-    "homepage": "homepage_2.com",
-    "workPhone": "+345(10)872",
-    "homePhone": "+3651-08-72",
-    "address": "address \n 220 2",
-    "photo": "src\\test\\resources\\473a.gif"
-  },
-  {
-    "name": "test 3",
-    "middleName": "mname 3",
-    "lastName": "last name 3",
-    "nickname": "nickname 3",
-    "title": "title 3",
-    "company": "company 3",
-    "mobilePhone": "+345 9873",
-    "email": "test3@company.com",
-    "email2": "",
-    "email3": "",
-    "homepage": "homepage_3.com",
-    "workPhone": "+345(10)873",
-    "homePhone": "+3651-08-73",
-    "address": "address \n 220 3",
-    "photo": "src\\test\\resources\\473a.gif"
+    "photo": "src\\test\\resources\\ava.jpg"
   }
 ]

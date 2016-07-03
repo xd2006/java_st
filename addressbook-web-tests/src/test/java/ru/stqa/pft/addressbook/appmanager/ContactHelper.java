@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.List;
 
@@ -97,6 +98,16 @@ public class ContactHelper extends BaseHelper {
         app.contact().acceptAlert();
         contactCache = null;
         app.goTo().homePage();
+    }
+
+    public void addToGroup(ContactData contact, GroupData group){
+        app.contact().selectContact(contact.getId());
+        app.contact().addSelectedContactToGroup(group);
+    }
+
+    private void addSelectedContactToGroup(GroupData group) {
+        select(By.name("to_group"), group.getName());
+        click(By.name("add"));
     }
 
     public boolean isThereAContact() {

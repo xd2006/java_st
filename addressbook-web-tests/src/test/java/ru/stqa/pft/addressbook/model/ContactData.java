@@ -7,8 +7,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @XStreamAlias("contact")
 
@@ -85,7 +84,18 @@ public class ContactData {
     private Set<GroupData> groups = new HashSet<GroupData>();
 
 
+    public void withGroups(GroupData groups) {
+        Collection<GroupData> groupsCol = new ArrayList<GroupData>(){};
+        groupsCol.add(groups);
+        this.groups = new HashSet<GroupData>(groupsCol);
+    }
+
+    public void withAddedGroups(GroupData groups) {
+        this.groups.add(groups);
+    }
+
     public Groups getGroups() {
+
         return new Groups(groups);
     }
 
@@ -252,7 +262,10 @@ public class ContactData {
         if (homepage != null ? !homepage.equals(that.homepage) : that.homepage != null) return false;
         if (workPhone != null ? !workPhone.equals(that.workPhone) : that.workPhone != null) return false;
         if (homePhone != null ? !homePhone.equals(that.homePhone) : that.homePhone != null) return false;
-        return address != null ? address.equals(that.address) : that.address == null;
+        if (allPhones != null ? !allPhones.equals(that.allPhones) : that.allPhones != null) return false;
+        if (allEmails != null ? !allEmails.equals(that.allEmails) : that.allEmails != null) return false;
+        if (address != null ? !address.equals(that.address) : that.address != null) return false;
+        return groups != null ? groups.equals(that.groups) : that.groups == null;
 
     }
 
@@ -272,7 +285,10 @@ public class ContactData {
         result = 31 * result + (homepage != null ? homepage.hashCode() : 0);
         result = 31 * result + (workPhone != null ? workPhone.hashCode() : 0);
         result = 31 * result + (homePhone != null ? homePhone.hashCode() : 0);
+        result = 31 * result + (allPhones != null ? allPhones.hashCode() : 0);
+        result = 31 * result + (allEmails != null ? allEmails.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (groups != null ? groups.hashCode() : 0);
         return result;
     }
 
