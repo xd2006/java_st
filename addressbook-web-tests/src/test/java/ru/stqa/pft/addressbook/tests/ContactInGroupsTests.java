@@ -31,27 +31,52 @@ public class ContactInGroupsTests extends TestBase {
 
     @Test
     public void testAddContactToGroup() {
-        Contacts before = app.db().contacts();
         ContactData workContact = null;
         try {
             workContact = app.db().contacts().stream().filter(c -> c.getGroups().size() < app.db().groups().size()).iterator().next();
         } catch (java.util.NoSuchElementException e) {
         }
 
-            if (workContact == null) {
-                app.goTo().gotoGroupPage();
-                app.group().create(new GroupData().withName("sp test group name").withHeader("sp test header").withFooter("sp test footer"));
-                workContact = app.db().contacts().stream().filter(c -> c.getGroups().size() < app.db().groups().size()).iterator().next();
-            }
-            final ContactData finalWorkContact = workContact;
-            GroupData workGroup = app.db().groups().stream().filter(g -> !finalWorkContact.getGroups().contains(g)).iterator().next();
+        if (workContact == null) {
+            app.goTo().gotoGroupPage();
+            app.group().create(new GroupData().withName("sp test group name").withHeader("sp test header").withFooter("sp test footer"));
+            workContact = app.db().contacts().stream().filter(c -> c.getGroups().size() < app.db().groups().size()).iterator().next();
+        }
+        final ContactData finalWorkContact = workContact;
+        GroupData workGroup = app.db().groups().stream().filter(g -> !finalWorkContact.getGroups().contains(g)).iterator().next();
 
+        Contacts before = app.db().contacts();
+        app.goTo().homePage();
+        app.contact().addToGroup(workContact, workGroup);
+        Contacts after = app.db().contacts();
+        workContact.withAddedGroup(workGroup);
+        assertThat(before.withModified(workContact), equalTo(after));
+
+    }
+
+    @Test
+    public void testRemoveContactFromGroup() {
+
+        ContactData workContact = null;
+        GroupData workGroup = null;
+        try {
+            workContact = app.db().contacts().stream().filter(c -> c.getGroups().size() > 0).iterator().next();
+            final ContactData finalWorkContact1 = workContact;
+            workGroup = app.db().groups().stream().filter(g -> finalWorkContact1.getGroups().contains(g)).iterator().next();
+        } catch (java.util.NoSuchElementException e) {
+        }
+        if (workContact == null) {
+            workGroup = app.db().groups().iterator().next();
+            workContact = app.db().contacts().iterator().next();
             app.goTo().homePage();
             app.contact().addToGroup(workContact, workGroup);
-            Contacts after = app.db().contacts();
-            workContact.withAddedGroups(workGroup);
-            assertThat(before.withModified(workContact), equalTo(after));
-
+        }
+        Contacts before = app.db().contacts();
+        app.goTo().homePage();
+        app.contact().removeFromGroup(workContact, workGroup);
+        Contacts after = app.db().contacts();
+        workContact.withoutGroup(workGroup);
+        assertThat(before.withModified(workContact), equalTo(after));
     }
 }
 

@@ -110,6 +110,17 @@ public class ContactHelper extends BaseHelper {
         click(By.name("add"));
     }
 
+    public void removeFromGroup(ContactData contact, GroupData group) {
+        app.contact().selectGroup(group);
+        app.contact().selectContact(contact.getId());
+        click(By.name("remove"));
+    }
+
+    private void selectGroup(GroupData group) {
+        select(By.name("group"), group.getName());
+
+    }
+
     public boolean isThereAContact() {
         return isElementPresent(By.name("selected[]"));
     }
@@ -196,4 +207,6 @@ public class ContactHelper extends BaseHelper {
         return wd.findElement(By.id("content")).getText();
 
     }
+
+
 }
