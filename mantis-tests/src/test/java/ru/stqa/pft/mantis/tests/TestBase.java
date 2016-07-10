@@ -6,7 +6,6 @@ import ru.stqa.pft.mantis.appmanager.ApplicationManager;
 
 import static org.openqa.selenium.remote.BrowserType.FIREFOX;
 
-i
 
 /**
  * Created by Alex on 29.05.2016.
