@@ -15,6 +15,18 @@ public class User {
     @Id
     @Column(name = "id")
     public int id;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", enabled=" + enabled +
+                ", id=" + id +
+                ", access_level=" + access_level +
+                '}';
+    }
+
     public String username;
     public String email;
     public byte enabled;

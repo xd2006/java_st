@@ -23,7 +23,7 @@ public class NavigationHelper extends BaseHelper {
         By headerLocator = By.xpath(".//*[@id='manage-user-div']/form[1]/fieldset/input[@class='button-small'and @type='submit']");
         if (isElementPresent(headerLocator))
             return;
-        click(By.xpath(".//*[@id='manage-menu']//a[contains(@href,'manage_user_page.php')"));
+        click(By.xpath(".//*[@id='manage-menu']//a[contains(@href,'manage_user_page.php')]"));
 
     }
 

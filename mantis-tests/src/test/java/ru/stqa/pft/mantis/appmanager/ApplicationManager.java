@@ -24,6 +24,7 @@ public class ApplicationManager {
     private MailHelper mail;
     private NavigationHelper navigationHelper;
     private DbHelper dbHelper;
+    private UsersHelper usersHelper;
 
 
     public ApplicationManager(String browser) {
@@ -60,6 +61,12 @@ public class ApplicationManager {
         return dbHelper;
     }
 
+    public UsersHelper users() {
+        if (usersHelper == null) {
+            usersHelper = new UsersHelper(this);
+        }
+        return usersHelper;
+    }
 
     public ReqistrationHelper registration() {
         if (registrationHelper == null) {
