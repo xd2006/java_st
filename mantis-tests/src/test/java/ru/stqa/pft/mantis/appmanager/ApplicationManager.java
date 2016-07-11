@@ -22,6 +22,8 @@ public class ApplicationManager {
     private ReqistrationHelper registrationHelper;
     private FtpHelper ftp;
     private MailHelper mail;
+    private NavigationHelper navigationHelper;
+    private DbHelper dbHelper;
 
 
     public ApplicationManager(String browser) {
@@ -51,12 +53,26 @@ public class ApplicationManager {
         return properties.getProperty(key);
     }
 
+    public DbHelper db() {
+        if (dbHelper == null) {
+            dbHelper = new DbHelper(this);
+        }
+        return dbHelper;
+    }
+
 
     public ReqistrationHelper registration() {
         if (registrationHelper == null) {
             registrationHelper = new ReqistrationHelper(this);
         }
         return registrationHelper;
+    }
+
+    public NavigationHelper nav() {
+        if (navigationHelper == null) {
+            navigationHelper = new NavigationHelper(this);
+        }
+        return navigationHelper;
     }
 
     public FtpHelper ftp() {
