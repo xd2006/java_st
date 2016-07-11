@@ -3,11 +3,13 @@ package ru.stqa.pft.mantis.appmanager;
 import org.apache.commons.net.telnet.TelnetClient;
 import ru.stqa.pft.mantis.model.MailMessage;
 
-import javax.mail.Session;
-import javax.mail.Store;
+import javax.mail.*;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Alex on 11.07.2016.
@@ -41,7 +43,7 @@ public class JamesHelper {
     }
 
     public void createUser(String name, String password) {
-initTelnetSession();
+        initTelnetSession();
         write("adduser " + name + " " + password);
         String result = readUntil("User " + name + " added");
         closeTelnetSession();
@@ -73,18 +75,18 @@ initTelnetSession();
         }
 
         //1st attempt is unsuccessful - don't know why
-        readUntil("login id:");
+        readUntil("Login id:");
         write("");
         readUntil("Password:");
         write("");
         //2nd attempt should be successful
-        readUntil("login id:");
+        readUntil("Login id:");
         write(login);
         readUntil("Password:");
         write(password);
 
         //Read welcome message
-        readUntil("Welcome "+login+".HELP for a list of commands");
+        readUntil("Welcome "+login+". HELP for a list of commands");
 
     }
 
@@ -120,7 +122,61 @@ initTelnetSession();
     }
 
 
-    public List<MailMessage> waitForMail(String user, String password, int i) {
-        return null;
+    public List<MailMessage> waitForMail(String user, String password, long timeout) throws MessagingException {
+        long now = System.currentTimeMillis();
+        while (System.currentTimeMillis() < now + timeout) {
+            List<MailMessage> allMail = getAllMail(user, password);
+            if (allMail.size() > 0) {
+                return allMail;
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        throw new Error("No mail");
+    }
+
+    private List<MailMessage> getAllMail(String user, String password) throws MessagingException {
+        Folder inbox = openInbox(user,password);
+        List<MailMessage> messages = Arrays.asList(inbox.getMessages()).stream().map(m -> toModelMail(m)).collect(Collectors.toList());
+        closeFolder(inbox);
+        return messages;
+    }
+
+    private void closeFolder(Folder folder) throws MessagingException {
+        folder.close(true);
+        store.close();
+    }
+
+    private Folder openInbox(String user, String password) throws MessagingException {
+        store = mailSession.getStore("pop3");
+        store.connect(mailserver,user,password);
+        Folder folder = store.getDefaultFolder().getFolder("INBOX");
+        folder.open(Folder.READ_WRITE);
+        return folder;
+
+    }
+
+    public static MailMessage toModelMail(Message m) {
+        try {
+            return new MailMessage(m.getAllRecipients()[0].toString(), (String) m.getContent());
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void drainEmail(String username, String password) throws MessagingException {
+        Folder inbox = openInbox(username, password);
+        for (Message message:inbox.getMessages()){
+            message.setFlag(Flags.Flag.DELETED,true);
+        }
+        closeFolder(inbox);
+
     }
 }

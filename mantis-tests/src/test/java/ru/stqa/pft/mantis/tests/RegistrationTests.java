@@ -3,6 +3,7 @@ package ru.stqa.pft.mantis.tests;
 import org.testng.annotations.Test;
 import ru.stqa.pft.mantis.model.MailMessage;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class RegistrationTests extends TestBase {
     }
 
     @Test
-    public void testRegistration() throws IOException {
+    public void testRegistration() throws IOException, MessagingException {
         long currentTime = System.currentTimeMillis();
         String email = "user"+currentTime+"@localhost.localdomain";
         String user = "user"+currentTime;
