@@ -5,7 +5,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.mantis.model.MailMessage;
 
-import javax.mail.MessagingException;
+import javax.xml.rpc.ServiceException;
 import java.io.IOException;
 import java.util.List;
 
@@ -26,7 +26,8 @@ public class RegistrationTests extends TestBase {
     }
 
     @Test
-    public void testRegistration() throws IOException, MessagingException {
+    public void testRegistration() throws IOException, ServiceException {
+        skipIfNotFixed(1);
         long currentTime = System.currentTimeMillis();
         String email = "user"+currentTime+"@localhost.localdomain";
         String user = "user"+currentTime;

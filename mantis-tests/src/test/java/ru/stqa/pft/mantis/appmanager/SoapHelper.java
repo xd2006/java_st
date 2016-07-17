@@ -18,9 +18,14 @@ import java.util.stream.Collectors;
  */
 public class SoapHelper {
     private final ApplicationManager app;
+    private final String admin;
+    private final String password;
 
     public SoapHelper(ApplicationManager app) {
         this.app = app;
+        admin = app.getProperty("web.adminLogin");
+        password = app.getProperty("web.adminPassword");
+
     }
 
     public Set<Project> getProjects() throws RemoteException, MalformedURLException, ServiceException {
@@ -29,13 +34,18 @@ public class SoapHelper {
         return Arrays.asList(projects).stream().map(p-> new Project().withId(p.getId().intValue()).withName(p.getName())).collect(Collectors.toSet());
     }
 
-    private MantisConnectPortType getMantisConnect() throws ServiceException, MalformedURLException {
+    public MantisConnectPortType getMantisConnect() throws ServiceException, MalformedURLException {
         return new MantisConnectLocator().getMantisConnectPort(new URL(app.getProperty("web.baseUrl")+"/api/soap/mantisconnect.php"));
     }
 
+    public IssueData getIssueData(int issueId) throws MalformedURLException, ServiceException, RemoteException {
+        MantisConnectPortType mc = getMantisConnect();
+        IssueData issue = mc.mc_issue_get(admin, password, BigInteger.valueOf(issueId));
+        return issue;
+    }
+
+
     public Issue addIssue(Issue issue) throws MalformedURLException, ServiceException, RemoteException {
-        String admin = app.getProperty("web.adminLogin");
-        String password = app.getProperty("web.adminPassword");
         MantisConnectPortType mc = getMantisConnect();
         String[] categories = mc.mc_project_get_categories(admin, password, BigInteger.valueOf(issue.getProject().getId()));
         IssueData issueData = getIssueDataFromIssue(issue);
