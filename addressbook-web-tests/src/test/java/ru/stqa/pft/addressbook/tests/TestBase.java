@@ -1,19 +1,21 @@
 package ru.stqa.pft.addressbook.tests;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
+import com.jayway.restassured.RestAssured;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.SkipException;
+import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
-import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.Contacts;
-import ru.stqa.pft.addressbook.model.GroupData;
-import ru.stqa.pft.addressbook.model.Groups;
+import ru.stqa.pft.addressbook.model.*;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -27,6 +29,10 @@ public class TestBase {
 
     Logger logger= LoggerFactory.getLogger(TestBase.class);
     protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", FIREFOX));
+    @BeforeClass
+    public void init() {
+        RestAssured.authentication = RestAssured.basic("LSGjeU4yP1X493ud1hNniA==", "");
+    }
 
     @BeforeSuite
     public void setUp() throws Exception {
@@ -64,6 +70,32 @@ public class TestBase {
                    .withAddress(c.getAddress().replaceAll("\\n\\s+", "\n").replaceAll("\\s+\\n", "\n"))).collect(Collectors.toSet())));
         }
     }
+
+    public boolean isIssueOpen(int issueId) throws IOException {
+        IssueBugify issueData = getIssue(issueId);
+        int status = issueData.getState();
+        if (status == 3 || status == 2){
+                return false;
+        }
+        return true;
+    }
+
+    public void skipIfNotFixed(int issueId) throws IOException {
+        if (isIssueOpen(issueId)) {
+            throw new SkipException("Ignored because of issue " + issueId);
+        }
+    }
+
+    private IssueBugify getIssue(int issueId) throws IOException {
+        String json = RestAssured.get("http://demo.bugify.com/api/issues/"+issueId+".json").asString();
+        JsonElement parsed = new JsonParser().parse(json);
+        JsonElement issues = parsed.getAsJsonObject().get("issues");
+        Set<IssueBugify> set = new Gson().fromJson(issues, new TypeToken<Set<IssueBugify>>() {
+        }.getType());
+        return set.iterator().next();
+    }
+
+
 }
 
 
