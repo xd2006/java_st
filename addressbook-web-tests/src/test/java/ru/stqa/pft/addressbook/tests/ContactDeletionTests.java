@@ -17,7 +17,7 @@ public class ContactDeletionTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() throws IOException {
-        skipIfNotFixed(6);
+        //skipIfNotFixed(6);
         if (app.db().contacts().size() == 0) {
             app.goTo().homePage();
             app.contact().create(new ContactData().withName("name").withMiddleName("maname").withLastName("last name")
