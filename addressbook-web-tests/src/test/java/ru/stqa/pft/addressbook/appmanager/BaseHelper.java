@@ -39,13 +39,12 @@ public class BaseHelper {
     protected void attach(By locator, File file) {
         if (file != null) {
 
-                wd.findElement(locator).sendKeys(file.getAbsolutePath());
-            }
+            wd.findElement(locator).sendKeys(file.getAbsolutePath());
         }
+    }
 
 
-    protected String getValue(By locator)
-    {
+    protected String getValue(By locator) {
         return wd.findElement(locator).getAttribute("value");
     }
 
@@ -71,7 +70,7 @@ public class BaseHelper {
         try {
             setTimeout(1);
             wd.findElement(locator);
-           setTimeout(60);
+            setTimeout(60);
             return true;
         } catch (NoSuchElementException e) {
             setTimeout(60);
@@ -81,9 +80,14 @@ public class BaseHelper {
     }
 
     protected void select(By selectLocator, String itemText) {
-        if (itemText != null)
-            new Select(wd.findElement(selectLocator)).selectByVisibleText(itemText);
+        if (itemText != null) {
+            Select select = new Select(wd.findElement(selectLocator));
+            if (select.getFirstSelectedOption().getText() != itemText) {
+                new Select(wd.findElement(selectLocator)).selectByVisibleText(itemText);
+            }
+        }
     }
+
 
     protected void setTimeout(int timeoutSeconds) {
 

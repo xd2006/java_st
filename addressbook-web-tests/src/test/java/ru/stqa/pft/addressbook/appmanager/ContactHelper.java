@@ -85,6 +85,7 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void modify(ContactData contact) {
+        app.contact().selectGroup("[all]");
         app.contact().initContactModification(contact.getId());
         app.contact().fillContactForm(contact,false);
         app.contact().submitContactFormModification();
@@ -93,6 +94,7 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void delete(ContactData contact) {
+        app.contact().selectGroup("[all]");
         app.contact().selectContact(contact.getId());
         app.contact().deleteContact();
         app.contact().acceptAlert();
@@ -101,6 +103,7 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void addToGroup(ContactData contact, GroupData group){
+        app.contact().selectGroup("[all]");
         app.contact().selectContact(contact.getId());
         app.contact().addSelectedContactToGroup(group);
     }
@@ -118,6 +121,11 @@ public class ContactHelper extends BaseHelper {
 
     private void selectGroup(GroupData group) {
         select(By.name("group"), group.getName());
+
+    }
+
+    private void selectGroup(String groupName) {
+        select(By.name("group"), groupName);
 
     }
 

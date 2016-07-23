@@ -84,10 +84,16 @@ public class ContactData {
     private Set<GroupData> groups = new HashSet<GroupData>();
 
 
-    public void withGroup(GroupData group) {
+    public ContactData withGroup(GroupData group) {
         Collection<GroupData> groupsCol = new ArrayList<GroupData>(){};
         groupsCol.add(group);
         this.groups = new HashSet<GroupData>(groupsCol);
+        return this;
+    }
+
+    public ContactData withGroup(Groups group) {
+        this.groups = new HashSet<GroupData>(group);
+        return this;
     }
 
     public void withAddedGroup(GroupData group) {
