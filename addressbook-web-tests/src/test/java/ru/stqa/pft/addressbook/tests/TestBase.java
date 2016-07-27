@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken;
 import com.jayway.restassured.RestAssured;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.ITestContext;
 import org.testng.SkipException;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
@@ -25,6 +26,7 @@ import static org.openqa.selenium.remote.BrowserType.FIREFOX;
 /**
  * Created by Alex on 29.05.2016.
  */
+@Listeners(MyTestListener.class)
 public class TestBase {
 
     Logger logger= LoggerFactory.getLogger(TestBase.class);
@@ -35,8 +37,9 @@ public class TestBase {
     }
 
     @BeforeSuite
-    public void setUp() throws Exception {
+    public void setUp(ITestContext context) throws Exception {
         app.init();
+        context.setAttribute("app",app);
     }
 
     @AfterSuite(alwaysRun = true)

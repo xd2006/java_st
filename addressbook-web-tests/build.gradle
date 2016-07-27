@@ -4,6 +4,9 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    agent
+}
 dependencies {
     compile 'org.testng:testng:6.9.10'
     compile group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
@@ -16,8 +19,11 @@ dependencies {
     compile 'mysql:mysql-connector-java:6.0.3'
     compile 'org.hibernate:hibernate-core:5.2.1.Final'
     compile 'com.jayway.restassured:rest-assured:2.9.0'
-
+    agent "org.aspectj:aspectjweaver:1.8.0"
+    compile "ru.yandex.qatools.allure:allure-testng-adaptor:1.4.0.RC4"
 }
+
+
 task testGroups(type: Test) {
     useTestNG() {
         suites 'src/test/resources/testng-groups.xml'
@@ -40,6 +46,10 @@ task testGroups(type: Test) {
 
 }
 
+testGroups.doFirst {
+    jvmArgs "-javaagent:${configurations.agent.singleFile}"
+}
+
 task testContacts(type: Test) {
     useTestNG() {
         suites 'src/test/resources/testng-contacts.xml'
@@ -59,4 +69,8 @@ task testContacts(type: Test) {
     if (project.hasProperty('verifyUI')) {
         systemProperty 'verifyUI', "${verifyUI}"
     }
+}
+
+testContacts.doFirst {
+    jvmArgs "-javaagent:${configurations.agent.singleFile}"
 }
