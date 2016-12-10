@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.openqa.selenium.remote.BrowserType.FIREFOX;
+import static org.openqa.selenium.remote.BrowserType.CHROME;
 
 /**
  * Created by Alex on 29.05.2016.
@@ -30,7 +30,7 @@ import static org.openqa.selenium.remote.BrowserType.FIREFOX;
 public class TestBase {
 
     Logger logger= LoggerFactory.getLogger(TestBase.class);
-    protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", FIREFOX));
+    protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", CHROME));
     @BeforeClass
     public void init() {
         RestAssured.authentication = RestAssured.basic("LSGjeU4yP1X493ud1hNniA==", "");
